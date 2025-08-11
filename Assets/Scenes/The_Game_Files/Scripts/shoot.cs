@@ -2,15 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// used for .wasPressedThisFrame
 using UnityEngine.InputSystem;
 
+// this class is used to select player weapon and shoot
 public class shoot : MonoBehaviour
 {
 
+    // an int to pick weapon and a GameObject array of those weapons
     public int selectedWeapon;
     public GameObject[] Weapons;
+
+    // Transforms from which weapons are shot from
     public Transform shootingPoint;
     public Transform bombPoint;
+
+    // used for a weapon delay
     private float scatterTimeCounter;
     private float laserTimeCounter;
     public float scatterTime;
@@ -28,6 +35,7 @@ public class shoot : MonoBehaviour
     {
         shootDelay();
 
+        // selects weapon
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             selectedWeapon = 0;
@@ -44,6 +52,9 @@ public class shoot : MonoBehaviour
         }
 
 
+        // this is the shooting control
+        // if spacebar is pressed then instantiate selcted bullet. if bullet is scatter or 
+        // laser than reset the delays and disallow shooting of object using the bool
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             //instantiate spawns a clone of first argument bulletPrefab
@@ -76,6 +87,8 @@ public class shoot : MonoBehaviour
 
     }
 
+
+    // sets selected weapon to active
     void SelectWeapon()
     {
         int i = 0;
@@ -86,6 +99,7 @@ public class shoot : MonoBehaviour
         }
     }
 
+    // called in update to create a delay for scatter and laser weapons
     void shootDelay()
     {
         if (scatterCanShoot == false)
@@ -110,6 +124,7 @@ public class shoot : MonoBehaviour
         }
     }
 
+    // shoot function, creates a bullet object depending on selected weapon
     void bulletShoot()
     {
         Instantiate(Weapons[selectedWeapon], shootingPoint.position, Quaternion.identity);

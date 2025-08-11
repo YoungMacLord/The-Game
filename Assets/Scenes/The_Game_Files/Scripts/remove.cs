@@ -15,6 +15,11 @@ public class remove : MonoBehaviour
     }
 
     // Update is called once per frame
+
+    // logic is simple if all of the scatter shot pieces have been destroyed
+    // either by hitting an enemy or going off screen then destroy the parent object
+
+
     void Update()
     {
         if (transform.childCount == 0)
@@ -25,3 +30,5 @@ public class remove : MonoBehaviour
         }
     }
 }
+
+// NOTE: there may be a better way to do this. Looking at the scatter script itself could help.
