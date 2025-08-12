@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+//handles the scene change for when the player dies 
+
 public class nextScene : MonoBehaviour
 {
     public float timer;
