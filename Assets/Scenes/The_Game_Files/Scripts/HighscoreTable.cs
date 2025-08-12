@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//this script handles the highscore table within the game
+
 public class HighscoreTable : MonoBehaviour
 {
     private Transform entryContainer;
@@ -67,6 +69,7 @@ public class HighscoreTable : MonoBehaviour
         //Debug.Log(PlayerPrefs.GetString(json));
     }
 
+    
     private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList)
     {
         float templateheight = 75f;
@@ -98,6 +101,8 @@ public class HighscoreTable : MonoBehaviour
 
         transformList.Add(entryTransform);
     }
+
+    //this function adds the players score and name to the highscore table
     private void AddHighscoreEntry(int score, string name)
     {
         HighscoreEntry highscoreEntry = new HighscoreEntry { score = score, name = name };
@@ -133,6 +138,8 @@ public class HighscoreTable : MonoBehaviour
         Debug.Log(PlayerPrefs.GetString(json));
     }
 
+    // this function removes entries if the list is too long
+
     private void removeEntry()
     {
         string jsonString = PlayerPrefs.GetString("highscoreTable");
@@ -163,6 +170,7 @@ public class HighscoreTable : MonoBehaviour
         public string name;
     }
 
+    //this function enters the players score into the highscore table
     public void scoreCheck()
     {
         string jsonString = PlayerPrefs.GetString("highscoreTable");
@@ -176,6 +184,8 @@ public class HighscoreTable : MonoBehaviour
             AddHighscoreEntry(logicScript.playerScore, initial);
         }
     }
+
+    //this function initializes the highscore table with dummy scores
 
     private void initializeList()
     {

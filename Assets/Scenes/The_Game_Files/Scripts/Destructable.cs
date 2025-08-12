@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// handles the behavior for enemies 
+// enabling the ability to destroy them 
+// once they are on screen and handling collision with the 
+// player and the player's weapons
+
 public class Destructable : MonoBehaviour
 {
     bool canBeDestroyed = false;

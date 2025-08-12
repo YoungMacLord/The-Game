@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//this script handles the spawns of the enemies 
+// for when the boss spawns 
+// switching the enemies spawns off while the boss is on the screen 
+
 public class bossSpawnScript : MonoBehaviour
 {
     public GameObject boss;

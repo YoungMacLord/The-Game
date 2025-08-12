@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//this script handles the explosion of the bombs
+//desroys the explosion object after its duration
+
 public class ExplosionScript : MonoBehaviour
 {
     public float ExplosionDuration;

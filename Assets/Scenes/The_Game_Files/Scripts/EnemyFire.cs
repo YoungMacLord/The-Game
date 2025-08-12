@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//handles the enemies weapon behavior
+
 public class EnemyFire : MonoBehaviour
 {
 
@@ -26,6 +28,7 @@ public class EnemyFire : MonoBehaviour
 
        // direction = (transform.localRotation * Vector2.right).normalized;
 
+        // this if statement handles the delay between the enemies shooting
         if (autoShoot)
         {
             if (delayTimer >= shootIntervalSeconds)
@@ -48,6 +51,7 @@ public class EnemyFire : MonoBehaviour
         
     }
 
+    // the shoot function handles the spawns for the enemies when they fire
     public void shoot()
     {
         GameObject go = Instantiate(bullet.gameObject, transform.position, Quaternion.identity);

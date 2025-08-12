@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class bossMoveSet : MonoBehaviour
 {
+    // holds variables the are attached to the boss
     public GameObject bullet;
 
     public bool autoShoot = true;
@@ -40,6 +41,10 @@ public class bossMoveSet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //handles the different stages in the boss fight
+        //activates the boss's different abilities as its health gets lower
+
         intro();
         life = health.life;
         if (life == 90)
@@ -69,6 +74,8 @@ public class bossMoveSet : MonoBehaviour
             canSpawnFlyGuy = true;
         }
 
+        //handles the timing for the flyguy spawn ability
+
         if (canSpawnFlyGuy)
         {
             if (timer < spawnRate)
@@ -85,8 +92,7 @@ public class bossMoveSet : MonoBehaviour
        // rotateShoot();
        // trackPlayer();
 
-
-
+        //handles the boss's shooting attack
         if (autoShoot)
         {
             if (delayTimer >= shootDelay)
@@ -108,7 +114,8 @@ public class bossMoveSet : MonoBehaviour
         }
     }
 
-
+    //function that handles the boss's shooting
+    //spawns in the gameobjects at designated positions
     public void Shoot()
     {
         Instantiate(bullet.gameObject, shootingPoint_0.position, shootingPoint_0.rotation);
@@ -116,12 +123,17 @@ public class bossMoveSet : MonoBehaviour
         Instantiate(bullet.gameObject, shootingPoint_2.position, shootingPoint_2.rotation);
     }
 
+    //handles the flyguy spawn ability
+    //spawns in the flyguys when the function is called
     void spawnFlyGuy()
     {
         Instantiate(fly_guy_group, spawnPoint.position + new Vector3(0, yOffset, 0), transform.rotation);
         //Instantiate(fly_guy_group, spawnPoint.position, transform.rotation);
     }
 
+    //this function moves the boss to the center
+    //of the screen and spins the boss
+    //while also shooting
     void rotateShoot()
     {
         Vector2 middle = Vector2.MoveTowards(rb.position, Vector2.zero, 7 * Time.fixedDeltaTime);
@@ -131,6 +143,7 @@ public class bossMoveSet : MonoBehaviour
         shootInterval = .2f;
     }
 
+    //this function makes the boss follow the players position 
     void trackPlayer()
     {
         Vector2 target = new Vector2(rb.position.x, player.position.y);
@@ -138,6 +151,7 @@ public class bossMoveSet : MonoBehaviour
         rb.MovePosition(newPos);
     }
 
+    //handles the bosses spawn 
      void intro()
     {
         Vector2 pos = transform.position;

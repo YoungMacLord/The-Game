@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//this script handles the health pack spawns
+//the rng for the spawns are initiated when 
+//an enemy is killed
+
 public class dropHealth : MonoBehaviour
 {
 
