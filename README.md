@@ -5,7 +5,5 @@ The game is a SHMUP (Shoot em up) type game including multiple weapons and enemi
 Armon Chanthavisouk  
 Bryan Castro  
 Brandon Fenelon
-//# How to run
-//In order to run the game simply download and run The Game.exe
 # Known Bugs
 After dying all left over enemies will be destroyed from the scene. If a destroyed enemies happens to drop a health pack it can be seen floating by on the high score page which is the next scene.
