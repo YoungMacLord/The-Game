@@ -5,17 +5,35 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Diagnostics;
 
+/// <summary>
+/// Manages player health, UI hearts, invicibility frames, and death handling.
+/// </sumamry>
 public class Life : MonoBehaviour
 {
+    // Reference to the player's Rigidbody2D
     private Rigidbody2D shipRB;
+    
+    // Current number of lives the player has
     public int life = 3;
+
+    // Whether the player is currently invicible after taking damage
     private bool isInvincible = false;
+
+    // Duration of invincibility in seconds 
     public float invincibilityDurationSeconds;
+
+    // Time between flashes while invincible
     public float invincibilityDeltaTime;
+
+    // General purpose timer (not currently used)
     public float timer;
-    //public logicScript logic;
+
+    /// UI images representing the player's lives (as hearts)
     public Image playerHeart, playerHeart_1, playerHeart_2;
+
+    // text displayed when the player dies
     public Text deathText;
+
     public AudioSource source1, source2;     // source1 = hurt player, source2 = player death
     [SerializeField]
     private GameObject model;
@@ -24,29 +42,22 @@ public class Life : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        deathText.enabled = false;
+        deathText.enabled = false; // Hides death text at the start
         shipRB = GetComponent<Rigidbody2D>();
-     
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-
-
+    /// <summary>
+    /// Handles collisions with pickups, enemies, and bullets
+    /// </summary>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //UnityEngine.Debug.Log("Collision!");
-
+        // If collision is with a health pickup
         if (collision.GetComponent<Collider2D>().tag == "pickUp")
         {
             //dropHealth healthPack = collision.GetComponent<dropHealth>();
 
-            if (life != 3)
+            if (life != 3) // Only heal if not already at max health
             {
                 life += 1;
                 if (life == 3)
@@ -60,16 +71,22 @@ public class Life : MonoBehaviour
 
             }
 
+            // Removes picked-up object from the visible screen
             Destroy(collision.gameObject);
 
         }
 
+        // Ignores collisions while invincible 
         if (isInvincible) return;
 
+        // If hit by enemy or bullet
         if (collision.GetComponent<Collider2D>().tag == "Enemy" || collision.GetComponent<Collider2D>().tag == "Bullet")
         {
+            // Play the hurt sound effect
             source1.Play();
             life -= 1;
+
+            // Update UI hearts based on remaining lives
             if (life == 2)
             {
                 playerHeart_2.enabled = !playerHeart_2.enabled;
@@ -81,14 +98,19 @@ public class Life : MonoBehaviour
             if (life == 0)
             {
                 playerHeart.enabled = !playerHeart;
+
+                //Player is destroyed when lives runs out 
                 Destroy(gameObject);
             }
 
+            // Start the invincibility coroutine
             StartCoroutine(BecomeTemporarilyInvincible());
         }
        
     }
 
+    /// <summary>
+    /// Makes the player invincible for a set duration and flashes to indicate current state
     private IEnumerator BecomeTemporarilyInvincible()
     {
         //UnityEngine.Debug.Log("Player turned invincible!");
@@ -111,16 +133,23 @@ public class Life : MonoBehaviour
         }
 
         //Debug.Log("Player is no longer invincible!");
+        // Reset state after invincibility ends
         ScaleModelTo(Vector3.one);
         isInvincible = false;
     }
 
+    /// <summary>
+    /// Scales the player model to the given value (used for flashing)
+    /// </summary>
     private void ScaleModelTo(Vector3 scale)
     {
         model.transform.localScale = scale;
     }
 
-
+    /// <summary>
+    /// Called when the player object is destroyed.
+    /// Displayed the death text on screen.
+    /// </summary>
     void OnDestroy()
     {
         deathText.enabled = true;
